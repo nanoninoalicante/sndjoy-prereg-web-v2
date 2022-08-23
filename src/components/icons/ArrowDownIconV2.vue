@@ -1,0 +1,50 @@
+<template>
+    <svg
+        class="h-12 w-12 animate-pulse fill-white opacity-85"
+        width="66px"
+        height="66px"
+        viewBox="0 0 66 66"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+        <title>Group 4 Copy</title>
+        <g
+            id="Pre-registerWEB"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+        >
+            <g
+                id="Pre-regWEB_laptop2"
+                transform="translate(-320.000000, -871.000000)"
+            >
+                <g
+                    id="Group-4-Copy"
+                    transform="translate(320.000000, 871.000000)"
+                >
+                    <circle
+                        id="Oval"
+                        stroke="#FFFFFF"
+                        stroke-width="5"
+                        cx="33"
+                        cy="33"
+                        r="30.5"
+                    ></circle>
+                    <g
+                        id="icons/more"
+                        transform="translate(21.276176, 26.057158)"
+                        fill="#FFFFFF"
+                    >
+                        <path
+                            d="M16.6588499,-4.65871668 C17.1751769,-5.18375139 18.0193674,-5.19081039 18.5444021,-4.6744834 C19.0290495,-4.19787387 19.0723449,-3.44190139 18.6700328,-2.91546408 L18.5601688,-2.78893124 L8.82817604,7.10550938 L18.5442669,16.658717 C19.0289821,17.1352576 19.0723849,17.8912239 18.6701477,18.4177184 L18.5603018,18.5442669 C18.0837612,19.0289821 17.3277948,19.0723849 16.8013003,18.6701477 L16.6747519,18.5603018 L5.05715758,7.1386352 L16.6588499,-4.65871668 Z"
+                            id="Path-21"
+                            transform="translate(12.000000, 6.942843) rotate(-90.000000) translate(-12.000000, -6.942843) "
+                        ></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>
+</template>

@@ -34,7 +34,7 @@ IMPORTS
  */
 import { computed, onMounted, ref, watch } from "vue";
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
-
+import PrimaryButton from "@/components/PrimaryButton.vue"
 import { usePreReg } from "@/composables/prereg";
 import { vAutoAnimate } from "@/directives/directives";
 import { useRoute } from "vue-router";
@@ -42,7 +42,7 @@ const phoneNumber = ref()
 const results = ref()
 const route = useRoute();
 const isOnHomePage = computed(
-    () => route.fullPath === "/pre-registration-tonto" || route.fullPath === "/pre-registration-tonto/"
+    () => route.fullPath === "/pre-registration-sndjoy" || route.fullPath === "/pre-registration-sndjoy/"
 );
 
 const { preregData } = usePreReg();

@@ -2,6 +2,7 @@
 import { reactive, ref, watch, onMounted } from "vue";
 import FloatingPreRegister from "@/components/FloatingPreRegister.vue";
 import PrimarySection from "@/components/PrimarySection.vue";
+import FloatingPrimaryLogoHolder from "@/components/FloatingPrimaryLogoHolder.vue";
 import PageSection from "@/components/PageSection.vue";
 import PrimaryPageHolder from "@/components/PrimaryPageHolder.vue";
 import FullPageWalkThrough from "@/components/FullPageWalkThrough.vue";
@@ -11,21 +12,21 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const { showFloatingForm } = useFloatingInput();
 const { filteredWalkthroughScreens } = useLayoutContent();
-const scrollToTop = () => {
-    console.log("scroll to top: ");
-    page.scroll({ top: 0, left: 0, behavior: "smooth" });
-};
-watch(route, () => {
-    console.log("route change");
-    scrollToTop();
-});
+// const scrollToTop = () => {
+//     console.log("scroll to top: ");
+//     page.scroll({ top: 0, left: 0, behavior: "smooth" });
+// };
+// watch(route, () => {
+//     console.log("route change");
+//     scrollToTop();
+// });
 </script>
 <template>
     <PrimaryPageHolder id="primaryPageHolder">
         <FloatingPrimaryLogoHolder></FloatingPrimaryLogoHolder>
         <FloatingPreRegister
             v-if="showFloatingForm"
-            class="fixed md:hidden"
+            class="fixed"
         ></FloatingPreRegister>
 
         <PageSection

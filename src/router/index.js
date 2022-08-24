@@ -7,6 +7,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      redirect: { name: "prereg" }
+    },
+    {
+      path: '/pre-registration-sndjoy',
+      name: 'prereg',
       component: HomeView
     },
     // {

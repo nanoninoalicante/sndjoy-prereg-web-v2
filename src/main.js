@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import 'maz-ui/css/main.css'
 import './index.css'
 
 const app = createApp(App)

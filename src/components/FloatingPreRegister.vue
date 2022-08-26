@@ -2,8 +2,6 @@
     <div class="w-full fixed bottom-0 z-50 left-0 px-0 py-2 flex justify-center items-center"
         :class="{ hidden: !isOnHomePage }">
         <div class="w-full md:w-2/3 lg:w-3/5 px-2 py-4 rounded-3xl bg-white">
-
-            <div class="fixed top-0 right-0 bg-white z-[999999]"><code>{{ results }}</code></div>
             <div
                 class="relative mb-2 flex justify-center items-stretch space-x-2 text-gray-600 focus-within:text-gray-800">
                 <div v-if="!verificationChallenge" class="relative w-full">
@@ -120,5 +118,8 @@ onMounted(async () => {
 <style>
 .m-phone-number-input .m-input {
     height: 4rem !important;
+}
+.ma-input .ma-input-wrapper.maz-rounded-lg  {
+    border-radius: 1.8rem !important;
 }
 </style>

@@ -14,38 +14,33 @@ const images = [
     "desktop/4.jpg",
     "desktop/5.jpg"
 ];
-const walkthroughScreens = () => [
-    {
-        text: "Be the first to get access",
-        imagePosition: "object-center",
-        image: images[0],
-        mobileImage: mobileImages[0]
-    },
-    {
-        text: loremIpsum(),
-        imagePosition: "object-left",
-        image: images[1],
-        mobileImage: mobileImages[1]
-    },
-    {
-        text: loremIpsum(),
-        imagePosition: "object-left",
-        image: images[2],
-        mobileImage: mobileImages[2]
-    },
-    {
-        text: loremIpsum(),
-        imagePosition: "object-center",
-        image: images[3],
-        mobileImage: mobileImages[3]
-    },
-    {
-        text: loremIpsum(),
-        imagePosition: "object-right",
-        image: images[4],
-        mobileImage: mobileImages[4]
-    }
-];
+const walkthroughScreens = () => {
+    const screens = [
+        {
+            text: "Network of personal shoppers to curate the perfect gift"
+        },
+        {
+            text: "Make someone’s day with a gift just for them"
+        },
+        {
+            text: "Schedule ahead or order a last-minute gift for any occasion"
+        },
+        {
+            text: "Surprise your friends and family"
+        },
+        {
+            text: "Uplift their day with a personalized gift, delivered with care"
+        }
+    ]
+    return screens.map((screen, index) => {
+        return {
+            ...screen,
+            imagePosition: "object-center",
+            image: images[index],
+            mobileImage: mobileImages[index]
+        }
+    })
+};
 
 const filteredWalkthroughScreens = computed(() => {
     return walkthroughScreens();

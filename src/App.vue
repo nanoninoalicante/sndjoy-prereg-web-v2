@@ -10,7 +10,7 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 const route = useRoute();
 onMounted(() => {
   console.log("route: ", route.query);
-  useStorage("tonto-ga", route.query);
+  useStorage("sndjoy-ga", route.query);
 });
 
 </script>

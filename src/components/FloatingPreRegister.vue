@@ -18,6 +18,11 @@
                         <!-- <ArrowRightIcon class="w-6 h-6 fill-white"></ArrowRightIcon> -->
                         >
                     </PrimaryButton>
+                    <PrimaryButton id="sign-in-button" class="shadow-xl px-3 py-2" :disabled="!formIsValid"
+                        @click="preregWithPhone">
+                        <!-- <ArrowRightIcon class="w-6 h-6 fill-white"></ArrowRightIcon> -->
+                        >
+                    </PrimaryButton>
                 </div>
             </div>
 

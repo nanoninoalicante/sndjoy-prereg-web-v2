@@ -9,12 +9,17 @@
                         @update="results = $event" :success="results?.isValid" />
                 </div>
                 <div v-if="verificationChallenge" class="relative w-full">
-                    <input type="text" class="p-4 border-2 border-primary-500 rounded-2xl w-full" placeholder="12345" />
+                    <input v-model="verificationCode" type="text"
+                        class="p-4 border-2 border-primary-500 rounded-2xl w-full" placeholder="12345" />
                 </div>
-
                 <div v-auto-animate class="buttons flex items-stretch">
-                    <PrimaryButton id="sign-in-button" class="shadow-xl px-3 py-2" :disabled="!formIsValid"
-                        @click="preregWithPhone">
+                    <PrimaryButton v-if="!verificationChallenge" id="sign-in-button" class="shadow-xl px-3 py-2"
+                        :disabled="!formIsValid" @click="preregWithPhone">
+                        <!-- <ArrowRightIcon class="w-6 h-6 fill-white"></ArrowRightIcon> -->
+                        >
+                    </PrimaryButton>
+                    <PrimaryButton v-if="verificationChallenge" class="shadow-xl px-3 py-2" :disabled="!formIsValid"
+                        @click="confirmVerificationCode">
                         <!-- <ArrowRightIcon class="w-6 h-6 fill-white"></ArrowRightIcon> -->
                         >
                     </PrimaryButton>
@@ -44,6 +49,8 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { useAuth } from '@vueuse/firebase/useAuth'
 const phoneNumber = ref()
+const verificationCode = ref()
+const firebaseResponse = ref()
 const results = ref()
 const route = useRoute();
 const isOnHomePage = computed(
@@ -75,18 +82,33 @@ const preregWithPhone = async () => {
         const response = await signInWithPhoneNumber(auth, results.value?.e164, window.recaptchaVerifier)
         console.log("response from firebase: ", response);
         window.firebaseResponse = response;
+        firebaseResponse.value = response;
         verificationChallenge.value = response.verificationId;
     } catch (error) {
         console.log('error; ', error);
     }
 }
+const confirmVerificationCode = async () => {
+    const code = verificationCode.value;
+    await firebaseResponse.value.confirm(code).then((result) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log("user: ", user);
+        // ...
+    }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+    });
+
+}
 onMounted(() => {
-    window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+    const recaptcha = new RecaptchaVerifier('sign-in-button', {
         'size': 'invisible',
         'callback': (response) => {
             console.log("recaptcha res: ", response);
         }
     }, auth);
+    window.recaptchaVerifier = recaptcha;
 })
 
 
@@ -119,7 +141,8 @@ onMounted(async () => {
 .m-phone-number-input .m-input {
     height: 4rem !important;
 }
-.ma-input .ma-input-wrapper.maz-rounded-lg  {
+
+.ma-input .ma-input-wrapper.maz-rounded-lg {
     border-radius: 1.8rem !important;
 }
 </style>

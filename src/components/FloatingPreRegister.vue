@@ -94,6 +94,7 @@ const confirmVerificationCode = async () => {
         // User signed in successfully.
         const user = result.user;
         console.log("user: ", user);
+        window.location.href = "/pre-registration-sndjoy/step-2"
         // ...
     }).catch((error) => {
         // User couldn't sign in (bad verification code?)

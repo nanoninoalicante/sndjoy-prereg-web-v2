@@ -30,12 +30,6 @@
                 </div>
             </div>
 
-            <!-- <div v-auto-animate class="flex w-full flex-col space-y-1">
-                <ErrorMessage v-for="error in v$.phone.$silentErrors" :key="error.$uid" :error="error"
-                    class="shadow-xl" />
-                <SuccessInputMessage v-if="!v$.phone.$invalid && v$.phone.$dirty"
-                    :message="'That\'s a good lookin handle!'" class="shadow-xl"></SuccessInputMessage>
-            </div> -->
         </div>
     </div>
 </template>
@@ -51,7 +45,7 @@ import { useAlerts } from "@/composables/alerts";
 import { vAutoAnimate } from "@/directives/directives";
 import { useRoute } from "vue-router";
 import { initializeApp } from 'firebase/app'
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from 'firebase/auth'
 import { useAuth } from '@vueuse/firebase/useAuth'
 const { alerts, addAlert } = useAlerts();
 const phoneNumber = ref()
@@ -104,9 +98,12 @@ const confirmVerificationCode = async () => {
     fullPageLoader.value = true;
     verificationChallengeIsLoading.value = true;
     const code = verificationCode.value;
-    await firebaseResponse.value.confirm(code).then((result) => {
+    await firebaseResponse.value.confirm(code).then(async (result) => {
         const user = result.user;
         console.log("user: ", user);
+        await updateProfile(auth.currentUser, {
+            displayName: `prereg-web`
+        })
         window.location.href = "/pre-registration-sndjoy/step-2"
     }).catch((error) => {
         addAlert({ message: "Your verification code seems to not be quite right. Please try again" })
@@ -165,5 +162,16 @@ onMounted(async () => {
 
 .ma-input .ma-input-wrapper.maz-rounded-lg {
     border-radius: 1.8rem !important;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

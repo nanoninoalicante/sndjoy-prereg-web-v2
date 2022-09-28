@@ -4,7 +4,7 @@ import * as uuid from "uuid";
 type AlertTypes = "warning" | "success" | "error";
 type CloseTypes = "auto" | "manual";
 
-const alerts = ref([]);
+const alerts: any = ref([]);
 const addAlert = (data: {
     id?: string;
     message: string;

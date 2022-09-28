@@ -24,6 +24,7 @@ module.exports = {
       red: colors.red,
       orange: colors.orange,
       indigo: colors.indigo,
+      fuchsia: colors.fuchsia,
       yellow: colors.yellow,
       teal: colors.teal,
       twitter: "#1DA1F2",

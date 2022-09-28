@@ -1,7 +1,26 @@
 <template>
-    <div class="w-full fixed bottom-0 z-50 left-0 px-0 py-2 flex justify-center items-center"
+    <div class="w-full fixed bottom-0 z-50 left-0 px-0 py-8 flex flex-col justify-center items-center"
         :class="{ hidden: !isOnHomePage }">
-        <div class="w-full md:w-2/3 lg:w-3/5 px-2 py-4 rounded-3xl bg-white">
+        <div v-if="!preregUserType" class="w-full mx-6 px-6 space-x-4 mb-3 flex flex-row justify-center items-center">
+            <button @click="preregUserType = 'joygiver'"
+                class="p-4 bg-primary-500 shadow-lg text-xl rounded-3xl font-bold text-white hover:bg-primary-700 hover:text-white">I
+                want to be a JoyGiver 🎁</button>
+            <button @click="preregUserType = 'customer'"
+                class="p-4 bg-primary-500 shadow-lg text-xl rounded-3xl font-bold text-white hover:bg-primary-700 hover:text-white">I
+                need to get a gift for someone 🎈</button>
+        </div>
+        <div v-else class="w-full mx-6 px-6 space-x-4 mb-1 flex flex-row justify-center items-center">
+            <button @click="preregUserType = 'joygiver'"
+                :class="preregUserType === 'joygiver' ? 'bg-primary-500 border-primary-700' : 'bg-gray-200'"
+                class="px-4 py-1 text-md rounded-3xl border-2 font-medium text-white hover:bg-primary-500 hover:text-white">
+                I want to be a JoyGiver 🎁</button>
+            <button @click="preregUserType = 'customer'"
+                :class="preregUserType === 'customer' ? 'bg-primary-500 border-primary-700' : 'bg-gray-200'"
+                class="px-4 py-1 text-md rounded-3xl border-2 font-medium text-white hover:bg-primary-500 hover:text-white">
+                I need to get a gift for someone 🎈</button>
+        </div>
+        <div v-show="preregUserType" class="w-full md:w-2/3 lg:w-3/5 px-2 py-4 rounded-3xl bg-white">
+
             <div
                 class="relative mb-2 flex justify-center items-stretch space-x-2 text-gray-600 focus-within:text-gray-800">
                 <div v-if="!verificationChallenge" class="relative w-full">
@@ -49,6 +68,7 @@ import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from
 import { useAuth } from '@vueuse/firebase/useAuth'
 const { alerts, addAlert } = useAlerts();
 const phoneNumber = ref()
+const preregUserType = ref()
 const verificationCode = ref()
 const verificationChallengeIsLoading = ref(false)
 const firebaseResponse = ref()
@@ -70,10 +90,12 @@ const formIsValid = computed(() => {
 /*
 AUTH
 */
+const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyCk6gp4cxuhDaOFVWMq58dIaDalwbJGOSQ";
+const FIREBASE_DOMAIN = import.meta.env.VITE_FIREBASE_DOMAIN || "sndjoy-development.firebaseapp.com";
 const verificationChallenge = ref(false);
 const app = initializeApp({
-    apiKey: "AIzaSyCk6gp4cxuhDaOFVWMq58dIaDalwbJGOSQ",
-    authDomain: "sndjoy-development.firebaseapp.com"
+    apiKey: FIREBASE_API_KEY,
+    authDomain: FIREBASE_DOMAIN
 })
 const auth = getAuth(app);
 const { isAuthenticated, user } = useAuth(auth)
@@ -102,7 +124,7 @@ const confirmVerificationCode = async () => {
         const user = result.user;
         console.log("user: ", user);
         await updateProfile(auth.currentUser, {
-            displayName: `prereg-web`
+            displayName: `prereg-web:${preregUserType.value}`
         })
         window.location.href = "/pre-registration-sndjoy/step-2"
     }).catch((error) => {
@@ -163,15 +185,16 @@ onMounted(async () => {
 .ma-input .ma-input-wrapper.maz-rounded-lg {
     border-radius: 1.8rem !important;
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 </style>

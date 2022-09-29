@@ -61,12 +61,11 @@ import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import PrimaryButton from "@/components/PrimaryButton.vue"
 import { usePreReg } from "@/composables/prereg";
 import { useAlerts } from "@/composables/alerts";
+import { useFirebaseAuth } from "@/composables/firebase";
 import { vAutoAnimate } from "@/directives/directives";
 import { useRoute } from "vue-router";
-import { initializeApp } from 'firebase/app'
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from 'firebase/auth'
-import { useAuth } from '@vueuse/firebase/useAuth'
-const { alerts, addAlert } = useAlerts();
+import { RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from 'firebase/auth'
+const { addAlert } = useAlerts();
 const phoneNumber = ref()
 const preregUserType = ref()
 const verificationCode = ref()
@@ -90,15 +89,8 @@ const formIsValid = computed(() => {
 /*
 AUTH
 */
-const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyCk6gp4cxuhDaOFVWMq58dIaDalwbJGOSQ";
-const FIREBASE_DOMAIN = import.meta.env.VITE_FIREBASE_DOMAIN || "sndjoy-development.firebaseapp.com";
 const verificationChallenge = ref(false);
-const app = initializeApp({
-    apiKey: FIREBASE_API_KEY,
-    authDomain: FIREBASE_DOMAIN
-})
-const auth = getAuth(app);
-const { isAuthenticated, user } = useAuth(auth)
+const { auth } = useFirebaseAuth();
 
 
 const preregWithPhone = async () => {

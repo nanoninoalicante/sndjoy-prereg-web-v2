@@ -1,4 +1,4 @@
-import { computed, reactive, ref, watch } from "vue";
+import { ref } from "vue";
 import { useStorage } from "@vueuse/core";
 
 /*
@@ -28,6 +28,16 @@ const resetForm = async () => {
     window.location.reload();
 };
 
+const savePrereg = async () => {
+    const body = {
+        testing: "hello"
+    }
+    return await fetch("https://sndjoy-prereg-api-dev-v1-us-h23jvfs7iq-ue.a.run.app/prereg", {
+        method: "POST",
+        body: JSON.stringify(body)
+    })
+}
+
 export function usePreReg() {
     return {
         submittingLoading,
@@ -36,5 +46,6 @@ export function usePreReg() {
         resetForm,
         preregData,
         fullPageLoader,
+        savePrereg
     };
 }

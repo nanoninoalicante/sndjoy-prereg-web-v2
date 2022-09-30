@@ -77,9 +77,7 @@ const isOnHomePage = computed(
     () => route.fullPath === "/pre-registration-sndjoy" || route.fullPath === "/pre-registration-sndjoy/"
 );
 
-const { preregData, fullPageLoader } = usePreReg();
-
-const formInputLoading = ref(true);
+const { preregData, fullPageLoader, savePrereg } = usePreReg();
 
 const formIsValid = computed(() => {
     return results.value?.isValid || false;
@@ -118,6 +116,7 @@ const confirmVerificationCode = async () => {
         await updateProfile(auth.currentUser, {
             displayName: `prereg-web:${preregUserType.value}`
         })
+        await savePrereg();
         window.location.href = "/pre-registration-sndjoy/step-2"
     }).catch((error) => {
         addAlert({ message: "Your verification code seems to not be quite right. Please try again" })

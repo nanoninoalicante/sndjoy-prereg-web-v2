@@ -1,5 +1,8 @@
 import { ref } from "vue";
 import { useStorage } from "@vueuse/core";
+import { getAuth } from "firebase/auth";
+
+
 
 /*
 STATE
@@ -29,12 +32,23 @@ const resetForm = async () => {
 };
 
 const savePrereg = async () => {
+    const auth = getAuth();
+    const idToken = await auth.currentUser.getIdToken(true);
+    console.log("idtoken: ", idToken);
     const body = {
-        testing: "hello"
+        phonePrefix: "+34",
+        phoneNumber: "644632342",
+        fullPhoneNumber: "644632342",
+        firebaseId: "jWlxaviJkVaGdpBGc3P02OGpvNC3",
+        analyticsDetails: "instagram-post",
+        preregDetails: "joygiver"
     }
-    return await fetch("https://sndjoy-prereg-api-dev-v1-us-h23jvfs7iq-ue.a.run.app/prereg", {
+    return await fetch("https://webhook.site/d8bd39e6-c931-41d5-9b42-4bb02eb160be/prereg", {
         method: "POST",
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers: {
+            Authorization: `Bearer ${idToken}`
+        }
     })
 }
 

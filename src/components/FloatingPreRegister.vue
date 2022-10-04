@@ -31,7 +31,7 @@
                     <div v-if="verificationChallenge"
                         class="fixed z-[150] top-0 left-0 flex flex-col space-y-4 justify-center items-center px-6 h-full w-full bg-white bg-opacity-70 backdrop-blur-lg">
                         <h1 class="font-medium text-xl text-center">Please verify your phone below 👇</h1>
-                        <input v-model="verificationCode" type="number" :disabled="verificationChallengeIsLoading"
+                        <input v-model="verificationCode" @keyup.enter="confirmVerificationCode" type="text" :disabled="verificationChallengeIsLoading"
                             class="p-4 border-2 text-2xl font-medium border-primary-500 rounded-2xl text-center w-[150px] md:w-[200px]"
                             placeholder="123456" />
                         <a href="/pre-registration-sndjoy"
@@ -127,8 +127,9 @@ const confirmVerificationCode = async () => {
 }
 watch(verificationCode, (newValue) => {
     if (!newValue) return null;
-    console.log("code: ", newValue.toString().length)
-    if (newValue.toString().length >= 6) {
+    const count = n => n.length;
+    console.log("code: ", count(newValue))
+    if (count(newValue) >= 6) {
         confirmVerificationCode();
     }
 })
